@@ -87,27 +87,11 @@ const format = (parsedMsg) => {
 
 // Consumer
 const consumer = (logEntry) => {
-  const entry = logEntry.replace(/\t/g, ' ');
+  const entry = logEntry.replace(/\t/g, ' '); //takes out the tabs 
+  entry = entry.replace(/[^{]*/,"");
+  entry = entry.substring(0, entry.lastIndexOf('}') + 1);
 
-  try {
-    let parsedMsg = JSON.parse(entry);
-    console.log(entry);
-
-    let ELKindex; // index to be used in the ElasticSearch submission
-    switch (parsedMsg.msgtype) {
-      case NETWORK_MAP:
-        ELKindex = 'network';
-        parsedMsg = format(parsedMsg);
-        console.log(parsedMsg);
-        break;
-      case RECEIVED_MSG:
-        ELKindex = `messages-${parsedMsg.self}`;
-        break;
-      default:
-        ELKindex = 'unformatted';
-        break;
-    }
-
+  
     client.index({
       index: ELKindex,
       type: 'log',
