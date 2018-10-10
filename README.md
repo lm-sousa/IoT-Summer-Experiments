@@ -1,3 +1,3 @@
-# IoT-Summer-Experiments
+# Io-Sumer-Exprimets
 
-Moved to https://github.com/iotlivinglab/IoT-MeshExperiments
+Moed o https://github.com/iotlivinglab/IoT-MeshExperiments
